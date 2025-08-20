@@ -3,6 +3,8 @@ package com.example.inventory.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Item {
@@ -11,8 +13,12 @@ public class Item {
     @Id
     private long id;
 
+    @NotBlank(message = "Name darf nicht leer sein")
     private String name;
+
     private String description;
+
+    @Min(value = 0, message = "Menge darf nicht negativ sein")
     private int quantity;
 
     public Item(){

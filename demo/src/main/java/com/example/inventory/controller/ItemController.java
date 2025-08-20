@@ -5,6 +5,8 @@ import com.example.inventory.repository.ItemRepository;
 import com.example.inventory.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class ItemController {
 
     //post Neues Item erstellen
     @PostMapping
-    public Item createItem(@RequestBody Item item){
+    public Item createItem(@Valid @RequestBody Item item){
         return itemRepository.save(item);
     }
 
@@ -35,7 +37,7 @@ public class ItemController {
 
     // put Item aktualisieren
     @PutMapping("/{id}")
-    public Item updateItem(@PathVariable Long id, @RequestBody Item itemDetails){
+    public Item updateItem(@PathVariable Long id, @Valid @RequestBody Item itemDetails){
         Item item = itemRepository.findById(id).orElseThrow();
         item.setName(itemDetails.getName());
         item.setQuantity(itemDetails.getQuantity());
