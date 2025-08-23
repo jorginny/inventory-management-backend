@@ -1,5 +1,6 @@
 package com.example.inventory.controller;
 
+import com.example.inventory.exception.ItemNotFoundException;
 import com.example.inventory.model.Item;
 import com.example.inventory.repository.ItemRepository;
 import com.example.inventory.repository.ItemRepository;
@@ -32,7 +33,7 @@ public class ItemController {
     //Get Einzelnes Item abrufen
     @GetMapping("/{id}")
     public Item getItemById(@PathVariable Long id){
-        return itemRepository.findById(id).orElse(null);
+        return itemRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(id));
     }
 
     // put Item aktualisieren
